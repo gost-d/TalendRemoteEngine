@@ -14,7 +14,7 @@
   
   tasks:
   
-  - maven_artifact:
+  - community.general.packaging.language.maven_artifact:
       repository_url: 'http://172.22.6.131:8081/repository/DEVOPS/'
       group_id: talend_remote_engine
       artifact_id: v
