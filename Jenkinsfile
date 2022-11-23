@@ -4,6 +4,10 @@ node {
         checkout scm 
     }
     
+    stage('Copy Talend Remote Engine files') {
+        sh('curl -u "admin:admin123" -o "./Talend-RemoteEngine-V2.11.7.zip" "http://172.22.6.131:8081/repository/DEVOPS/talend_remote_engine/v/2.11.7/v-2.11.7.zip" ')
+    }
+    
     stage('Create infrastructure') {
         withCredentials([azureServicePrincipal('AzureJenkins')]) {
             sh('docker pull ghostd/talend:firsttry')
