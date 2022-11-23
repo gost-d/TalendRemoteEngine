@@ -14,8 +14,8 @@
   
   tasks:
   
-  - win_get_url::
-      win_get_url:: 'http://172.22.6.131:8081/repository/DEVOPS/talend_remote_engine/v/2.11.7/v-2.11.7.zip'
+  - win_get_url:
+      url: 'http://172.22.6.131:8081/repository/DEVOPS/talend_remote_engine/v/2.11.7/v-2.11.7.zip'
       dest: C:\Users\azureuser
       url_username: admin
       url_password: admin123
