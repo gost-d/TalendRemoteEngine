@@ -21,7 +21,7 @@
 
   - name: Unzip a Talend Remote Engine file
     community.windows.win_unzip:
-      src: C:\Users\azureuser\Talend-Remote-Engine-V"{{ tre_version }}"-229.zip
+      src: C:\Users\azureuser\Talend-Remote-Engine-V"{{ tre_version }}".zip
       dest: C:\Users\azureuser\Talend-Remote-V"{{ tre_version }}"-last
 
   - name: Run basic PowerShell script
