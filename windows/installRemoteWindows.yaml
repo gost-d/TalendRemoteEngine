@@ -34,7 +34,7 @@
 
   - name: Copy Talend Remote Engine file
     win_copy:
-      src: /root/Talend-RemoteEngine-V2.11.7.zip
+      src: '/root/Talend-RemoteEngine-V{{ tre_version }}.zip'
       dest: C:\Users\azureuser
 
   - name: Unzip a Talend Remote Engine file
