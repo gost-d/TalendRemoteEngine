@@ -13,7 +13,25 @@
     java_minor_version: 8
   
   tasks:
-  
+
+  - name: Install Java
+    win_chocolatey:
+      name: "{{ jdk_package }}"
+      state: present
+      version: "{{ java_major_version }}"
+
+  - name: Set Java_home
+    win_environment:
+      state: present
+      name: JAVA_HOME
+      value: 'c:\Program Files\OpenJDK\openjdk-{{ java_major_version }}_{{ java_minor_version }}'
+      level: machine
+
+  - name: Add Java to path
+    win_path:
+      elements:
+        - 'c:\program files\java\OpenJDK\openjdk-{{ java_major_version }}_{{ java_minor_version }}\bin'
+
   - name: Copy Talend Remote Engine file
     win_copy:
       src: /root/Talend-RemoteEngine-V2.11.7.zip
@@ -21,13 +39,17 @@
 
   - name: Unzip a Talend Remote Engine file
     community.windows.win_unzip:
-      src: C:\Users\azureuser\Talend-Remote-Engine-V"{{ tre_version }}".zip
-      dest: C:\Users\azureuser\Talend-Remote-V"{{ tre_version }}"-last
-
-  - name: Run basic PowerShell script
+      src: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}.zip'
+      dest: C:\Users\azureuser\
+        
+  - name: Install Remote Talend Engine
     ansible.windows.win_powershell:
       script: |
-        cd C:\Users\azureuser\Talend-RemoteEngine-V2.11.7\bin
+        cd C:\Users\azureuser\Talend-RemoteEngine-V"{{ tre_version }}"\bin
         echo "feature:install wrapper `nwrapper:install -n talend-remote-engine `nlogout" | .\trun.bat
         .\talend-remote-engine-service.bat install
-        net start 'talend-remote-engine'
+  - name: Set service startup mode to auto and ensure it is started
+    ansible.windows.win_service:
+      name: 'talend-remote-engine'
+      start_mode: auto
+      state: started
