@@ -14,12 +14,10 @@
   
   tasks:
   
-  - win_get_url:
-      url: 'http://172.22.6.131:8081/repository/DEVOPS/talend_remote_engine/v/2.11.7/v-2.11.7.zip'
+  - name: Copy Talend Remote Engine file
+    win_copy:
+      src: /root/windows/Talend-RemoteEngine-V2.11.7-229.zip
       dest: C:\Users\azureuser
-      url_username: admin
-      url_password: admin123
-
 
   - name: Unzip a Talend Remote Engine file
     community.windows.win_unzip:
