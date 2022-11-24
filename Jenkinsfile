@@ -14,6 +14,7 @@ node {
     stage('Create infrastructure') {
         withCredentials([azureServicePrincipal('AzureJenkins')]) {
             
+            sh('docker login -u admin -p admin123 http://172.22.6.131:8083')
             sh('docker pull 172.22.6.131:8083/devops/ansible:1.0')
             
             if (params.ostype == 'windows') {
