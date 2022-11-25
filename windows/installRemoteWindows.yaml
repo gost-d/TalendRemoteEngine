@@ -1,7 +1,7 @@
 ---
 - name: Install Remote Engine
   hosts: all
-  
+
   vars:
     ansible_user: azureuser
     ansible_password: Temporary123
@@ -11,7 +11,7 @@
     jdk_package: openjdk11
     java_major_version: 11.0.16
     java_minor_version: 8
-  
+
   tasks:
 
   - name: Install Java
@@ -34,14 +34,14 @@
 
   - name: Copy Talend Remote Engine file
     win_copy:
-      src: '/root/Talend-RemoteEngine-V{{ tre_version }}.zip'
+      src: '/home/ansible/Talend-RemoteEngine-V{{ tre_version }}.zip'
       dest: C:\Users\azureuser
 
   - name: Unzip a Talend Remote Engine file
     community.windows.win_unzip:
       src: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}.zip'
       dest: C:\Users\azureuser\
-        
+
   - name: Install Remote Talend Engine
     ansible.windows.win_powershell:
       script: |
@@ -53,5 +53,3 @@
       name: 'talend-remote-engine'
       start_mode: auto
       state: started
-
-
